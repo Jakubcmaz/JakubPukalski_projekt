@@ -9,12 +9,15 @@ Zewnętrzne zasoby: Czcionki Google Fonts (Montserrat) oraz ikony FontAwesome.
 3. Architektura i struktura plików
 Projekt można zamknąć w jednym pliku lub podzielić modułowo:
 Plaintext
+
+
 adcc-champions-ranking/
 │
 ├── index.html       
 ├── style.css       
 ├── script.js           
 └── README.md      
+
 4. Wymagania funkcjonalne
 Tabela rankingowa: Prezentacja zawodników z kolumnami: Pozycja, Zawodnik, Klub/Kraj, Liczba złotych medali oraz Historia zwycięstw (rok i kategoria).
 Wyszukiwarka tekstowa: Filtrowanie zawodników w czasie rzeczywistym po imieniu, nazwisku, klubie, kraju lub konkretnym roku zwycięstwa.
