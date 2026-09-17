@@ -1,0 +1,22 @@
+Szczegółowe przypadki użycia
+System Rankingowy ADCC
+1. Wyszukiwanie Zawodników
+Aktor główny: Kibic
+Cel: Odnalezienie w bazie danych systemu zawodnika spełniającego zadane kryteria (np. imię, nazwisko, klub, kategoria wagowa).
+Warunki wstępne:
+Kibic ma dostęp do systemu (strona WWW / aplikacja mobilna).
+Zalogowanie nie jest wymagane – wyszukiwanie zawodników w rankingu jest dostępne publicznie (przeglądanie pełnej historii lub edycja danych wymaga uprawnień administratora).
+Warunki końcowe (sukces):
+System wyświetla listę zawodników pasujących do wprowadzonych kryteriów wraz z podstawowymi informacjami (klub, kategoria, zajmowane miejsce w rankingu).
+Główny przebieg zdarzeń:
+Kibic otwiera formularz wyszukiwania zawodników.
+Kibic wprowadza kryteria wyszukiwania (imię, nazwisko, klub lub kategoria).
+System waliduje wprowadzone dane wejściowe.
+System przeszukuje bazę danych zawodników rankingu ADCC.
+System zwraca listę pasujących pozycji z informacjami o zawodnikach.
+Kibic przegląda otrzymane wyniki wyszukiwania.
+Przebiegi alternatywne:
+3a. Puste zapytanie:
+System proszi o wpisanie przynajmniej jednego kryterium wyszukiwania.
+5a. Brak wyników:
+System informuje komunikatem: „Nie znaleziono zawodników spełniających kryteria” i proponuje zmianę filtrów lub wpisanie innych danych.
