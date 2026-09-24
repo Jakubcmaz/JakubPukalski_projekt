@@ -1,22 +1,185 @@
 Szczegółowe przypadki użycia
-System Rankingowy ADCC
-1. Wyszukiwanie Zawodników
+ADCC Champions Ranking
+Dokument opracowany na podstawie struktury przykładowego dokumentu przypadków użycia. Treść
+została dostosowana do projektu aplikacji webowej prezentującej historyczny ranking mistrzów świata
+ADCC.
+1. Przeglądanie rankingu
 Aktor główny: Kibic
-Cel: Odnalezienie w bazie danych systemu zawodnika spełniającego zadane kryteria (np. imię, nazwisko, klub, kategoria wagowa).
-Warunki wstępne:
-Kibic ma dostęp do systemu (strona WWW / aplikacja mobilna).
-Zalogowanie nie jest wymagane – wyszukiwanie zawodników w rankingu jest dostępne publicznie (przeglądanie pełnej historii lub edycja danych wymaga uprawnień administratora).
-Warunki końcowe (sukces):
-System wyświetla listę zawodników pasujących do wprowadzonych kryteriów wraz z podstawowymi informacjami (klub, kategoria, zajmowane miejsce w rankingu).
-Główny przebieg zdarzeń:
-Kibic otwiera formularz wyszukiwania zawodników.
-Kibic wprowadza kryteria wyszukiwania (imię, nazwisko, klub lub kategoria).
-System waliduje wprowadzone dane wejściowe.
-System przeszukuje bazę danych zawodników rankingu ADCC.
-System zwraca listę pasujących pozycji z informacjami o zawodnikach.
-Kibic przegląda otrzymane wyniki wyszukiwania.
-Przebiegi alternatywne:
-3a. Puste zapytanie:
-System proszi o wpisanie przynajmniej jednego kryterium wyszukiwania.
-5a. Brak wyników:
-System informuje komunikatem: „Nie znaleziono zawodników spełniających kryteria” i proponuje zmianę filtrów lub wpisanie innych danych.
+Aktor drugorzędny: brak
+Cel: Wyświetlenie historycznego rankingu zawodników ADCC, którzy zdobyli przynajmniej jeden
+medal, wraz z podstawowymi informacjami o liczbie złotych medali i historii zwycięstw.
+Warunki wstępne
+• Aplikacja jest dostępna w przeglądarce internetowej.
+• Użytkownik nie musi posiadać konta ani się logować.
+• Dane zawodników są dostępne w strukturze danych aplikacji.
+Warunki końcowe (sukces)
+• System wyświetla ranking zawodników.
+• Dla każdego zawodnika widoczna jest pozycja, zawodnik, klub/kraj, liczba złotych medali oraz
+historia zwycięstw.
+Główny przebieg zdarzeń
+• Kibic otwiera stronę aplikacji.
+• System ładuje dane rankingu z przygotowanej tablicy obiektów JavaScript.
+• System dynamicznie generuje tabelę rankingu.
+• System prezentuje dane zawodników w odpowiednich kolumnach.
+• Pierwsze trzy pozycje zostają wyróżnione specjalnym stylowaniem.
+• Kibic przegląda ranking.
+Przebiegi alternatywne
+• Brak danych – system wyświetla informację o braku dostępnych zawodników.
+• Duża liczba zawodników – użytkownik może przewijać tabelę, a układ pozostaje dostosowany do
+rozmiaru ekranu.
+Przebiegi wyjątkowe
+• E1. Błąd podczas ładowania danych – system wyświetla komunikat o problemie z wczytaniem
+rankingu.
+Powiązania z innymi przypadkami użycia
+• «extend» Wyszukiwanie zawodników — użytkownik może rozszerzyć przeglądanie rankingu o
+wyszukiwanie konkretnego zawodnika.
+Częstotliwość użycia: Wysoka — jest to podstawowa funkcja aplikacji i punkt wejścia do pozostałych
+funkcji.
+2. Wyszukiwanie zawodników
+Aktor główny: Kibic
+Aktor drugorzędny: brak
+Cel: Szybkie odnalezienie zawodnika na podstawie imienia, nazwiska, klubu, kraju lub konkretnego
+roku zwycięstwa.
+Warunki wstępne
+• Ranking został wcześniej załadowany.
+• Pole wyszukiwania jest dostępne na stronie.
+Warunki końcowe (sukces)
+• System wyświetla tylko zawodników spełniających podane kryterium.
+• Wyniki są aktualizowane w czasie rzeczywistym bez konieczności przeładowania strony.
+Główny przebieg zdarzeń
+• Kibic wpisuje tekst w pole wyszukiwania.
+• System nasłuchuje zmiany wartości pola.
+• System porównuje zapytanie z imieniem i nazwiskiem zawodnika, klubem/krajem oraz historią
+zwycięstw.
+• System filtruje dane.
+• System ponownie generuje tabelę z pasującymi zawodnikami.
+• Kibic przegląda wyniki wyszukiwania.
+Przebiegi alternatywne
+• Puste zapytanie – system przywraca pełny ranking.
+• Wyszukiwanie po roku – system zwraca zawodników, którzy mieli zwycięstwo w podanym roku.
+• Wyszukiwanie po kraju lub klubie – system ogranicza wyniki do pasujących rekordów.
+Przebiegi wyjątkowe
+• E1. Brak pasujących wyników – system wyświetla komunikat „Nie znaleziono zawodników
+spełniających kryteria”.
+Powiązania z innymi przypadkami użycia
+• «include» Filtrowanie historii zwycięstw — wyszukiwanie może wykorzystywać dane z historii
+zwycięstw zawodnika.
+Częstotliwość użycia: Wysoka — funkcja wykorzystywana do szybkiego odnajdywania konkretnych
+zawodników.
+3. Filtruj historię zwycięstw
+Aktor główny: Kibic
+Aktor drugorzędny: Administrator
+Cel: Ograniczenie wyświetlanych zawodników na podstawie informacji zawartych w historii ich
+zwycięstw, przede wszystkim roku i kategorii.
+Warunki wstępne
+• Dane historyczne zawodników są zapisane w aplikacji.
+• Użytkownik znajduje się na widoku rankingu lub korzysta z wyszukiwarki.
+Warunki końcowe (sukces)
+• System prezentuje zawodników, których historia zwycięstw odpowiada podanym kryteriom.
+• Dane rankingu zostają odświeżone zgodnie z aktywnym filtrem.
+Główny przebieg zdarzeń
+• Użytkownik podaje lub wybiera kryterium związane z historią zwycięstw, np. rok.
+• System analizuje historię zwycięstw zawodników.
+• System sprawdza rok i/lub kategorię każdego zwycięstwa.
+• System pozostawia rekordy spełniające kryteria.
+• System aktualizuje tabelę rankingu.
+Przebiegi alternatywne
+• Brak wybranych filtrów – system prezentuje wszystkie rekordy.
+• Kilka kryteriów – system uwzględnia wszystkie aktywne kryteria.
+• Brak pasujących zawodników – system wyświetla odpowiedni komunikat.
+Przebiegi wyjątkowe
+• E1. Nieprawidłowa wartość roku – system nie wykonuje filtrowania i informuje o wymaganym
+formacie.
+Powiązania z innymi przypadkami użycia
+• «include» Wyszukiwanie zawodników — historia zwycięstw może być jednym z kryteriów
+wyszukiwania.
+• Jest dostępny również dla Administratora w ramach kontroli danych historycznych.
+Częstotliwość użycia: Średnia — funkcja wykorzystywana głównie podczas analizy konkretnych
+okresów i kategorii.
+4. Generuj statystyki medalowe
+Aktor główny: Administrator
+Aktor drugorzędny: brak
+Cel: Przygotowanie statystyk dotyczących dorobku medalowego zawodników na podstawie danych
+znajdujących się w bazie aplikacji.
+Warunki wstępne
+• Administrator ma dostęp do danych zawodników.
+• Dane dotyczące medali i zwycięstw są zapisane w strukturze aplikacji.
+Warunki końcowe (sukces)
+• System wylicza statystyki medalowe na podstawie aktualnych danych.
+• Administrator otrzymuje zestawienie liczby złotych medali oraz innych informacji wynikających z
+historii zawodników.
+Główny przebieg zdarzeń
+• Administrator uruchamia funkcję generowania statystyk.
+• System pobiera dane zawodników.
+• System analizuje historię zwycięstw i medali.
+• System zlicza odpowiednie wartości dla zawodników.
+• System generuje zestawienie statystyczne.
+• Administrator przegląda wygenerowane dane.
+Przebiegi alternatywne
+• Brak danych historycznych – system pomija brakujące rekordy i informuje administratora.
+• Zmiana danych – po aktualizacji bazy statystyki mogą zostać wygenerowane ponownie.
+Przebiegi wyjątkowe
+• E1. Błąd przetwarzania danych – system informuje administratora o problemie i nie prezentuje
+niepełnych statystyk.
+Powiązania z innymi przypadkami użycia
+• «include» Zarządzaj bazą danych — statystyki korzystają z aktualnego zbioru danych
+przechowywanego przez aplikację.
+Częstotliwość użycia: Średnia — funkcja wykorzystywana podczas analizy i aktualizacji danych
+rankingowych.
+5. Zarządzaj bazą danych
+Aktor główny: Administrator
+Aktor drugorzędny: brak
+Cel: Utrzymywanie poprawnych i aktualnych danych o zawodnikach, medalach, zwycięstwach,
+kategoriach oraz krajach/klubach.
+Warunki wstępne
+• Administrator posiada dostęp do części administracyjnej aplikacji.
+• System oraz struktura danych są dostępne.
+Warunki końcowe (sukces)
+• Dane zawodników zostają dodane, zmodyfikowane lub usunięte zgodnie z operacją
+administratora.
+• Ranking i statystyki mogą korzystać z zaktualizowanych danych.
+Główny przebieg zdarzeń
+• Administrator wybiera rekord zawodnika lub dodaje nowego zawodnika.
+• Administrator wprowadza lub modyfikuje dane.
+• System sprawdza poprawność wymaganych pól.
+• System zapisuje zmiany.
+• System potwierdza wykonanie operacji.
+• Zaktualizowane dane mogą zostać wykorzystane przy generowaniu rankingu i statystyk.
+Przebiegi alternatywne
+• Dodanie nowego zawodnika – system tworzy nowy rekord.
+• Edycja zawodnika – system aktualizuje wybrane informacje.
+• Usunięcie rekordu – system usuwa rekord, jeżeli nie istnieją przeciwwskazania wynikające ze
+struktury danych.
+Przebiegi wyjątkowe
+• E1. Brak wymaganego pola – system odrzuca zapis i wskazuje brakujące dane.
+• E2. Niepoprawne dane – system informuje administratora o błędzie.
+• E3. Próba zapisania duplikatu – system ostrzega administratora przed powieleniem rekordu.
+Powiązania z innymi przypadkami użycia
+• «include» Generuj statystyki medalowe — statystyki wykorzystują dane zarządzane przez
+administratora.
+• «extend» Wykonuje kopię zapasową — administrator może dodatkowo wykonać kopię danych.
+Częstotliwość użycia: Średnia — funkcja wykorzystywana przede wszystkim podczas aktualizacji i
+weryfikacji danych.
+6. Wykonuje kopię zapasową
+Aktor główny: Administrator
+Aktor drugorzędny: brak
+Cel: Utworzenie kopii zapasowej danych rankingu w celu zabezpieczenia informacji przed ich utratą.
+Warunki wstępne
+• Administrator ma dostęp do zarządzania bazą danych.
+• Dane aplikacji są dostępne do eksportu.
+Warunki końcowe (sukces)
+• Kopia danych zostaje utworzona i może zostać wykorzystana do odtworzenia danych.
+Główny przebieg zdarzeń
+• Administrator wybiera opcję wykonania kopii zapasowej.
+• System przygotowuje aktualny zbiór danych.
+• System zapisuje lub eksportuje kopię.
+• System potwierdza zakończenie operacji.
+Przebiegi alternatywne
+• Administrator rezygnuje z operacji – system nie tworzy kopii.
+• Kopia jest wykonywana po wcześniejszej aktualizacji danych.
+Przebiegi wyjątkowe
+• E1. Błąd zapisu kopii – system informuje administratora o niepowodzeniu operacji.
+Powiązania z innymi przypadkami użycia
+• «extend» Zarządzaj bazą danych — wykonanie kopii zapasowej jest opcjonalnym rozszerzeniem
+zarządzania danymi.
+Częstotliwość użycia: Niska/okresowa — funkcja wykonywana podczas aktualizacji danych lub przed
