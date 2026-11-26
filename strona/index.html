@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADCC Champions Ranking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+<header>
+  <h1><i class="fa-solid fa-trophy"></i> ADCC Champions Ranking</h1>
+  <p>Historyczny ranking mistrzów świata ADCC (Submission Fighting World Championships)</p>
+  <div id="sum" class="sum"></div>
+  <button id="adminBtn" class="ghost"><i class="fa-solid fa-lock"></i> Panel administratora</button>
+</header>
+
+<main>
+  <section class="controls" aria-label="Wyszukiwanie i filtry">
+    <input id="q" type="search" aria-label="Szukaj zawodników" placeholder="Szukaj: imię, nazwisko, klub, kraj, rok…">
+    <input id="yr" type="text" inputmode="numeric" maxlength="4" aria-label="Rok zwycięstwa" placeholder="Rok (np. 2019)">
+    <select id="cat" aria-label="Kategoria"><option value="">Wszystkie kategorie</option></select>
+    <select id="srt" aria-label="Sortowanie">
+      <option value="pos">Sortuj: pozycja</option>
+      <option value="name">Sortuj: nazwisko</option>
+    </select>
+  </section>
+  <div id="msg" role="status"></div>
+
+  <div class="tablewrap">
+    <table id="rank">
+      <thead><tr><th>Poz.</th><th>Zawodnik</th><th>Klub/Kraj</th><th>Złote</th><th>Historia zwycięstw</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <section id="admin" hidden>
+    <h2><i class="fa-solid fa-screwdriver-wrench"></i> Panel administratora</h2>
+
+    <div class="card">
+      <h3>Zarządzanie bazą danych</h3>
+      <input type="hidden" id="f-id">
+      <label>Imię i nazwisko <input id="f-name"></label>
+      <label>Klub/Kraj <input id="f-country"></label>
+      <label>Zwycięstwa — jedno w linii: <code>rok;kategoria;medal</code> (medal: złoty / srebrny / brązowy)
+        <textarea id="f-wins" rows="4" placeholder="2019;Absolute;złoty"></textarea></label>
+      <div class="row">
+        <button id="saveBtn">Zapisz</button>
+        <button id="clearBtn" class="ghost">Wyczyść formularz</button>
+      </div>
+      <div id="fmsg" role="status"></div>
+      <ul id="plist"></ul>
+    </div>
+
+    <div class="card">
+      <h3>Statystyki medalowe i kopia zapasowa</h3>
+      <div class="row">
+        <button id="statsBtn">Generuj statystyki</button>
+        <button id="backupBtn" class="ghost"><i class="fa-solid fa-download"></i> Kopia zapasowa (JSON)</button>
+        <button id="verifyBtn">Zweryfikuj dane historyczne</button>
+        <button id="restoreBtn" class="ghost"><i class="fa-solid fa-upload"></i> Przywróć z kopii (JSON)</button>
+        <input id="restoreFile" class="vh" type="file" accept="application/json">
+        <button id="resetBtn" class="ghost">Przywróć dane początkowe</button>
+      </div>
+      <div id="rmsg" role="status"></div>
+      <div id="slog"></div>
+      <div id="vlog"></div>
+    </div>
+  </section>
+</main>
+<footer>ADCC Champions Ranking • dane przykładowe — zweryfikuj je przed publikacją</footer>
+<script src="script.js?v=3"></script>
+</body>
+</html>
